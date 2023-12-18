@@ -6,9 +6,10 @@ class Notification {
     this.receiver = receiver;
   }
   send() {
-    console.log(`Notification has been sent to ${this.receiver}`);
+    console.log("Notification has been sent to " + this.receiver);
   }
 }
+
 class EmailNotification extends Notification {
   constructor(notificationId, createdTime, content, receiver) {
     super(notificationId, createdTime, content, receiver);
@@ -21,19 +22,19 @@ class SMSNotification extends Notification {
   }
 }
 
-const thailandAlertEmail = new EmailNotification(
-  `Alet1`,
-  `11.00`,
-  `Earthquake`,
-  `People of Thailand`
+let emailNoti = new EmailNotification(
+  "ID:1",
+  "5:00 PM",
+  "Hi, contact from E-mail",
+  "test1@gmail.com"
 );
 
-const thailandAlertSms = new SMSNotification(
-  `Alet1`,
-  `11.00`,
-  `Earthquake`,
-  `Phonenumbers of Thailand`
+let smsNoti = new SMSNotification(
+  "ID:2",
+  "8:00 AM",
+  "Hi, contact from SMS",
+  "123-123-123"
 );
 
-thailandAlertEmail.send();
-thailandAlertSms.send();
+emailNoti.send();
+smsNoti.send();

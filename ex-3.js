@@ -1,4 +1,51 @@
 //  Start coding here
+class PostList {
+  constructor() {
+    this.posts = [];
+  }
+
+  addPost(post) {
+    this.posts.push({
+      id: this.posts.length + 1,
+      title: post.title,
+      content: post.content,
+      comments: post.comments,
+    });
+  }
+
+  sharePost(postId) {
+    console.log(
+      `You've shared post "${this.posts[postId - 1].title}" to your friend.`
+    );
+  }
+}
+
+class Post {
+  constructor(id, title, content) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+    this.comments = [];
+  }
+
+  addComment(comment) {
+    this.comments.push(comment);
+  }
+}
+
+class Comment {
+  constructor(id, content, createdBy) {
+    this.id = id;
+    this.content = content;
+    this.createdBy = createdBy;
+    this.like = 0;
+  }
+
+  addLike() {
+    this.like = this.like + 1;
+  }
+}
+
 class User {
   constructor(id, name, email) {
     this.id = id;
@@ -7,96 +54,91 @@ class User {
   }
 }
 
-class Postlist {
-  constructor(posts) {
-    this.posts = [];
-  }
-  addPost(post) {
-    this.posts.push(post);
-  }
-  sharePost() {
-    console.log(`You've shared post ${this.posts} to your friend.`);
-  }
-}
-
-class Post {
-  constructor(id, title, content, comment) {
-    this.id = id;
-    this.title = title;
-    this.content = content;
-    this.comment = [];
-  }
-  addComment(comment) {
-    this.comment.push(comment);
-  }
-}
-
-class Comment {
-  constructor(id, content, createdBy, like) {
-    this.id = id;
-    this.content = content;
-    this.createdBy = createdBy;
-    this.like = 0;
-  }
-  addLike(like) {
-    this.like += like;
-  }
-}
-
 class Facebook {
-  constructor(groupList, pageList) {
-    this.groupList = groupList;
-    this.pageList = pageList;
+  constructor() {
+    this.groupList = [];
+    this.pageList = [];
   }
-  addGroup() {
-    this.groupList += 1;
+
+  addGroup(group) {
+    this.groupList.push(group);
   }
-  addPage() {
-    this.pageList += 1;
+
+  addPage(page) {
+    this.pageList.push(page);
   }
 }
 
-class Facebookpage {
+class FacebookPage {
   constructor(name) {
     this.name = name;
   }
 }
 
-class Facebookgroup {
+class FacebookGroup {
   constructor(name) {
     this.name = name;
   }
 }
 
 class Notification {
-  constructor(post) {
-    this.post = post;
+  constructor(id) {
+    this.id = id;
   }
-  send() {
-    if (this.post.comment.length > 0) {
-      console.log(
-        `Notification: ${this.post.comment[0].createdBy} has just commented on this post—${this.post.title}`
-      );
-    } else {
-      console.log(`Notification: No comments yet on post—${this.post.title}`);
-    }
+
+  send(comment, post) {
+    console.log(
+      `Notification: ${comment.createdBy.name} has just commented on this post—"${post.title}".`
+    );
   }
 }
 
-const myComment = new Comment(1, "Great post!", "JohnDoe", 5);
-const myPost = new Post(1, "My First Post", "This is my first post.", [
-  myComment,
-]);
-// สร้างโพสต์และใส่ความคิดเห็นลงไป
+// สร้าง User
+const john = new User(1, "John", "john@gmail.com");
 
-myPost.addComment(myComment);
-// เพิ่มคอมเม้นต์เข้าไปในโพสต์
+// สร้าง Post List
+const postList = new PostList();
+// สร้าง Post
+const firstPost = new Post(1, "My first post", "This is post content");
 
-const myNotification = new Notification(myPost);
-// สร้าง Notification โดยใช้โพสต์ที่มีความคิดเห็นอยู่
+// John สร้าง Comment
+const firstComment = new Comment(1, "My first comment", john);
+// เพิ่ม Like ของ Comment
+firstComment.addLike();
+firstComment.addLike();
+// ดู Like ของ Comment
+console.log(firstComment.like);
 
-myNotification.send(); // ส่ง Notification
+// เพิ่ม Post เข้าไปใน PostList
+postList.addPost(firstPost);
 
-console.log(myPost.title);
-console.log(myPost.content);
-console.log(myPost.comment);
+// ดูรายการ Post ทั้งหมด
+console.log(postList.posts);
+
+// เพิ่ม Comment เข้าไปใน Post
+firstPost.addComment(firstComment);
+
+// Share post ที่ีไอดีเป็น 1
+postList.sharePost(1);
+
+// สร้าง Facebook
+const facebook = new Facebook();
+
+// สร้าง Page
+const firstPage = new FacebookPage("My first page");
+
+// สร้าง Group
+const firstGroup = new FacebookGroup("My first group");
+// เพิ่ม firstPage เข้าไปใน Facebook
+facebook.addPage(firstPage);
+// เพิ่ม firstGroup เข้าไปใน Facebook
+facebook.addGroup(firstGroup);
+
+// ดูรายการ Facebook Page และ Facebook Group
+console.log(facebook.pageList);
+console.log(facebook.groupList);
+
+// สร้าง Notification
+const notification = new Notification(1);
+// ส่ง Notification
+notification.send(firstComment, firstPost);

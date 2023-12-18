@@ -5,8 +5,9 @@ class EmailNotification {
     this.content = content;
     this.receiver = receiver;
   }
-  sendEmail() {
-    console.log(`Notification has been sent to ${this.receiver}`);
+
+  send() {
+    console.log("Notification has been sent to " + this.receiver);
   }
 }
 
@@ -17,24 +18,24 @@ class SMSNotification {
     this.content = content;
     this.phoneNumber = phoneNumber;
   }
-  sendSms() {
-    console.log(`Notification has been sent to ${this.phoneNumber}`);
+
+  send() {
+    console.log("Notification has been sent to " + this.phoneNumber);
   }
 }
 
-const emailTsunamiAlert = new EmailNotification(`Alert`, 11.0, `Tsunami`, [
-  `Biden`,
-  `Putin`,
-  `Prayuth`,
-]);
-
-const smsTsunamiAlert = new SMSNotification(
-  `Alert`,
-  `11:00`,
-  `Tsunami`,
-  `099 999 9999`
+let emailNoti = new EmailNotification(
+  "ID:1",
+  "5:00 PM",
+  "Hi, contact from E-mail",
+  "test1@gmail.com"
+);
+let smsNoti = new SMSNotification(
+  "ID:2",
+  "8:00 AM",
+  "Hi, contact from SMS",
+  "123-123-123"
 );
 
-emailTsunamiAlert.sendEmail();
-
-smsTsunamiAlert.sendSms();
+emailNoti.send();
+smsNoti.send();
